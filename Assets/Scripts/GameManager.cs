@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -9,7 +10,8 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public float respawnTime = 3.0f;
     public ParticleSystem explosion;
-
+    public Text scoreText;
+    public Text livesText;
     public int score = 0;
 
 
@@ -29,6 +31,9 @@ public class GameManager : MonoBehaviour
         {
             score += 25;
         }
+
+        scoreText.text = "Score: " + this.score.ToString();
+        livesText.text = "Lives: " + this.lives.ToString();
     }
 
 
@@ -48,30 +53,40 @@ public class GameManager : MonoBehaviour
             Invoke(nameof(Respawn), this.respawnTime);
         }
 
+        scoreText.text = "Score: " + this.score.ToString();
+        livesText.text = "Lives: " + this.lives.ToString();
 
-        
     }
 
-    private void Respawn()
+    public void setLivesAndScore()
+    {
+        this.lives = 3;
+        this.score = 0;
+    }
+
+    public void Respawn()
     {
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
         this.player.gameObject.SetActive(true);
 
         Invoke(nameof(TurnOnColissions), this.respawnTime);
+
     }
 
-    
+
     private void TurnOnColissions()
     {
         this.player.gameObject.layer = LayerMask.NameToLayer("Player");
     }
 
-    private void GameOver()
+    public void GameOver()
     {
-        this.lives = 3;
-        this.score = 0;
+      
+        FindObjectOfType<GameOverManager>().ShowGameOver();
 
-        Invoke(nameof(Respawn), this.respawnTime);
+        scoreText.text = "Score: " + this.score.ToString();
+        livesText.text = "Lives: " + this.lives.ToString();
+
     }
 }
