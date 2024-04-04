@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
@@ -18,6 +19,12 @@ public class PauseMenuManager : MonoBehaviour
                 PauseGame();
             }
         }
+    }
+
+    public void backToMenuButtonClicked()
+    {
+        PlayerPrefs.SetInt("SkipNicknameEntry", 1); // Set flag to skip nickname entry
+        SceneManager.LoadScene("MainMenuScene");
     }
 
     public bool isGamePausedChecker()
@@ -42,5 +49,6 @@ public class PauseMenuManager : MonoBehaviour
         pauseMenuPanel.SetActive(false);
         Time.timeScale = 1f; // Resumes the game
         IsGamePaused = false;
+
     }
 }

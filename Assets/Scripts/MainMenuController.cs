@@ -5,19 +5,35 @@ using UnityEngine.SceneManagement;
 public class MainMenuController : MonoBehaviour
 {
     public InputField nicknameInputField;
-    public GameObject menuButtonsPanel; // Parent GameObject of Play, Options, and Quit buttons
-    public GameObject nicknameInputGameObject; // Assign the InputField GameObject in the Inspector
-    public GameObject continueButtonGameObject; // Assign the Continue Button GameObject in the Inspector
+    public GameObject menuButtonsPanel;
+    public GameObject nicknamePanel; 
+    public GameObject nicknameInputGameObject; 
+    public GameObject continueButtonGameObject; 
 
 
 
-    public void Start()
+  void Start()
+{
+    if (PlayerPrefs.GetInt("SkipNicknameEntry", 0) == 1)
     {
-        menuButtonsPanel.SetActive(false); // Hide menu buttons initially
+        this.nicknamePanel.SetActive(false);
+        menuButtonsPanel.SetActive(true); 
+        nicknameInputGameObject.SetActive(false); 
+        continueButtonGameObject.SetActive(false); 
+        
+        PlayerPrefs.SetInt("SkipNicknameEntry", 0);
+        }
+        else
+        {
+            menuButtonsPanel.SetActive(false);
+
+        }
     }
+
 
     public void OnContinueClicked()
     {
+        this.nicknamePanel.SetActive(false);
         if (!string.IsNullOrWhiteSpace(nicknameInputField.text))
         {
             PlayerPrefs.SetString("PlayerNickname", nicknameInputField.text);
@@ -33,6 +49,7 @@ public class MainMenuController : MonoBehaviour
 
     public void OnPlayClicked()
     {
+        Time.timeScale = 1f; 
         SceneManager.LoadScene("SampleScene");
     }
 
