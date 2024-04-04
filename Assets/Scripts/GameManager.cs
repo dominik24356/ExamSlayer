@@ -12,6 +12,7 @@ public class GameManager : MonoBehaviour
     public Text scoreText;
     public Text livesText;
     public int score = 0;
+    public ParticleSystem explosion;
 
     AudioManager audioManager;
 
