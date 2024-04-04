@@ -10,11 +10,20 @@ public class AudioManager : MonoBehaviour
 
     [Header("Audio Clip")]
     public AudioClip mainTheme;
+    public AudioClip death;
+    public AudioClip destruction;
+    public AudioClip respawn;
+    public AudioClip shoot;
 
 
     private void Start()
     {
         musicSource.clip = mainTheme;
         musicSource.Play();
+    }
+
+    public void PlaySFX(AudioClip clip)
+    {
+        SFXSource.PlayOneShot(clip);
     }
 }

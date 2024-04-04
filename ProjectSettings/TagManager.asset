@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Pencil
   - Book
+  - Audio
   layers:
   - Default
   - TransparentFX

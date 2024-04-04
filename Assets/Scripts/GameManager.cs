@@ -9,12 +9,19 @@ public class GameManager : MonoBehaviour
     public int lives = 3;
     public float respawnTime = 3.0f;
     public ParticleSystem explosion;
-
     public int score = 0;
+
+    AudioManager audioManager;
+
+    private void Awake()
+    {
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+    }
 
 
     public void BookDestroyed(Book book)
     {
+        audioManager.PlaySFX(audioManager.destruction);
         this.explosion.transform.position = book.transform.position;
         this.explosion.Play();
 
@@ -34,6 +41,7 @@ public class GameManager : MonoBehaviour
 
     public void PlayerDied()
     {
+        audioManager.PlaySFX(audioManager.death);
         this.explosion.transform.position = this.player.transform.position;
         this.explosion.Play();
 
@@ -54,6 +62,7 @@ public class GameManager : MonoBehaviour
 
     private void Respawn()
     {
+        audioManager.PlaySFX(audioManager.respawn);
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
         this.player.gameObject.SetActive(true);

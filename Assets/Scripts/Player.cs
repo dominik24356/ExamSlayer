@@ -9,11 +9,13 @@ public class Player : MonoBehaviour
     private Rigidbody2D _rigidbody;
     public float thrustSpeed = 1.0f;
     public float turnSpeed = 1.0f;
-    public Pencil pencilPrefab; 
+    public Pencil pencilPrefab;
+    AudioManager audioManager;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
+        audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
     }
 
     private void Update()
@@ -53,6 +55,7 @@ public class Player : MonoBehaviour
 
     private void Shoot()
     {
+        audioManager.PlaySFX(audioManager.shoot);
         Pencil pencil = Instantiate(this.pencilPrefab, this.transform.position, this.transform.rotation);
         pencil.Project(this.transform.up);
     }

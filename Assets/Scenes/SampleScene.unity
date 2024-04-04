@@ -683,7 +683,7 @@ GameObject:
   - component: {fileID: 630634839}
   m_Layer: 0
   m_Name: AudioManager
-  m_TagString: Untagged
+  m_TagString: Audio
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -703,6 +703,10 @@ MonoBehaviour:
   musicSource: {fileID: 1139412715}
   SFXSource: {fileID: 52944727}
   mainTheme: {fileID: 8300000, guid: 8e1fdb3cc46e1a342a0647ae9bc68edd, type: 3}
+  death: {fileID: 8300000, guid: 92e13bb2ea7a7ad499f94bc8120f6185, type: 3}
+  destruction: {fileID: 8300000, guid: 6207d5f9a5a1a454eaafc7179a9fafd8, type: 3}
+  respawn: {fileID: 8300000, guid: 0e2ff086431662b4e9bb0584bedc2625, type: 3}
+  shoot: {fileID: 8300000, guid: 566749c5e00f28b4aa8d125a8bf6e0df, type: 3}
 --- !u!4 &630634840
 Transform:
   m_ObjectHideFlags: 0
@@ -749,9 +753,9 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.504
   m_Pitch: 1
-  Loop: 0
+  Loop: 1
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
