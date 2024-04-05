@@ -19,7 +19,6 @@ public class Book : MonoBehaviour
         _rigidbody = GetComponent<Rigidbody2D>();
     }
 
-
     private void Start()
     {
         _spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
