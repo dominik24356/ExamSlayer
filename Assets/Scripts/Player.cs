@@ -12,6 +12,9 @@ public class Player : MonoBehaviour
     public Pencil pencilPrefab;
     AudioManager audioManager;
 
+    public int bulletsLeft = 3;
+    public bool isReloading = false;
+
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
@@ -22,37 +25,60 @@ public class Player : MonoBehaviour
     {
         _thrusting = (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow));
 
-        if(Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
+        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.LeftArrow))
         {
             _turnDirection = 1.0f;
-        } else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
+        }
+        else if (Input.GetKey(KeyCode.D) || Input.GetKey(KeyCode.RightArrow))
         {
             _turnDirection = -1.0f;
-        } else
+        }
+        else
         {
             _turnDirection = 0.0f;
         }
 
-        if(Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) && !FindObjectOfType<PauseMenuManager>().isGamePausedChecker())
+        if (Input.GetKeyDown(KeyCode.Space) || Input.GetMouseButtonDown(0) && !FindObjectOfType<PauseMenuManager>().isGamePausedChecker())
         {
-            Shoot();
+            if (bulletsLeft > 0 && !isReloading)
+            {
+                Shoot();
+                this.bulletsLeft--;
+                if (bulletsLeft == 0)
+                {
+                    StartCoroutine(Reload());
+                }
+            }
+
+
+            
         }
 
+        FindObjectOfType<GameManager>().updateBulletsText(this.bulletsLeft);
+    }
+
+    private IEnumerator Reload()
+    {
+        
+        this.isReloading = true;
+        yield return new WaitForSeconds(2.0f);
+        this.bulletsLeft = 3;
+        this.isReloading = false;
+        audioManager.PlaySFX(audioManager.reload);
     }
 
     private void FixedUpdate()
     {
-        if( _thrusting)
+        if (_thrusting)
         {
             _rigidbody.AddForce(this.transform.up * this.thrustSpeed);
         }
 
-        if(_turnDirection != 0.0f)
+        if (_turnDirection != 0.0f)
         {
             _rigidbody.AddTorque(_turnDirection * this.turnSpeed);
         }
     }
-
 
     private void Shoot()
     {
@@ -63,17 +89,15 @@ public class Player : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Book")
+        if (collision.gameObject.tag == "Book")
         {
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = 0.0f;
 
             this.gameObject.SetActive(false);
 
-
             // slow very costly to use function
             FindObjectOfType<GameManager>().PlayerDied();
         }
     }
-
 }

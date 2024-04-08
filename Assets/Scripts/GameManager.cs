@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour
     public float respawnTime = 3.0f;
     public Text scoreText;
     public Text livesText;
+    public Text pencilsLeftText;
     public int score = 0;
     public ParticleSystem explosion;
 
@@ -64,6 +65,7 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = "Score: " + this.score.ToString();
         livesText.text = "Lives: " + this.lives.ToString();
+        pencilsLeftText.text = "Pencils: " + player.bulletsLeft.ToString();
 
     }
 
@@ -77,15 +79,20 @@ public class GameManager : MonoBehaviour
     {
         audioManager.PlaySFX(audioManager.respawn);
         this.player.transform.position = Vector3.zero;
-        this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
+        this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
         this.player.gameObject.SetActive(true);
+        this.player.enabled = true; // Enable the Player script
 
-        Invoke(nameof(TurnOnColissions), this.respawnTime);
+        // Reset bullets count and reloading state
+        this.player.bulletsLeft = 3;
+        this.player.isReloading = false;
 
+        Invoke(nameof(TurnOnCollisions), this.respawnTime);
     }
 
 
-    private void TurnOnColissions()
+
+    private void TurnOnCollisions()
     {
         this.player.gameObject.layer = LayerMask.NameToLayer("Player");
     }
@@ -97,6 +104,13 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = "Score: " + this.score.ToString();
         livesText.text = "Lives: " + this.lives.ToString();
+        pencilsLeftText.text = "Pencils: " + player.bulletsLeft.ToString();
 
+    }
+
+
+    public void updateBulletsText(int bulletsLeft)
+    {
+        pencilsLeftText.text = "Pencils: " + bulletsLeft.ToString();
     }
 }

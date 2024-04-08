@@ -14,6 +14,7 @@ public class AudioManager : MonoBehaviour
     public AudioClip destruction;
     public AudioClip respawn;
     public AudioClip shoot;
+    public AudioClip reload;
 
 
     private void Start()
