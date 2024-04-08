@@ -104,7 +104,6 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = "Score: " + this.score.ToString();
         livesText.text = "Lives: " + this.lives.ToString();
-        pencilsLeftText.text = "Pencils: " + player.bulletsLeft.ToString();
 
     }
 
@@ -112,5 +111,42 @@ public class GameManager : MonoBehaviour
     public void updateBulletsText(int bulletsLeft)
     {
         pencilsLeftText.text = "Pencils: " + bulletsLeft.ToString();
+        this.SaveScore();
     }
+
+    public void SaveScore()
+    {
+        int newScore = this.score;
+        string nickname = PlayerPrefs.GetString("PlayerNickname", "Player");
+
+        for (int i = 1; i <= 10; i++)
+        {
+            if (PlayerPrefs.HasKey($"Score_{i}"))
+            {
+                int existingScore = PlayerPrefs.GetInt($"Score_{i}");
+
+                if (newScore > existingScore)
+                {
+                    for (int j = 10; j > i; j--)
+                    {
+                        PlayerPrefs.SetInt($"Score_{j}", PlayerPrefs.GetInt($"Score_{j - 1}"));
+                        PlayerPrefs.SetString($"Nickname_{j}", PlayerPrefs.GetString($"Nickname_{j - 1}"));
+                    }
+
+                    PlayerPrefs.SetInt($"Score_{i}", newScore);
+                    PlayerPrefs.SetString($"Nickname_{i}", nickname);
+                    break;
+                }
+            }
+            else
+            {
+                PlayerPrefs.SetInt($"Score_{i}", newScore);
+                PlayerPrefs.SetString($"Nickname_{i}", nickname);
+                break;
+            }
+        }
+    }
+
+
+
 }
