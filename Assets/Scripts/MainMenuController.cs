@@ -8,11 +8,12 @@ public class MainMenuController : MonoBehaviour
     public GameObject menuButtonsPanel;
     public GameObject nicknamePanel; 
     public GameObject nicknameInputGameObject; 
-    public GameObject continueButtonGameObject; 
+    public GameObject continueButtonGameObject;
 
+    public GameObject rankingsPanel;
+    public Text rankingsText;
 
-
-  void Start()
+    void Start()
 {
     if (PlayerPrefs.GetInt("SkipNicknameEntry", 0) == 1)
     {
@@ -62,4 +63,31 @@ public class MainMenuController : MonoBehaviour
     {
         Application.Quit();
     }
+
+    public void ShowRankings()
+{
+    rankingsPanel.SetActive(true);
+
+    string rankingsDisplay = "Top Scores:\n";
+    for (int i = 1; i <= 10; i++)
+    {
+        if (PlayerPrefs.HasKey($"Score_{i}"))
+        {
+            int score = PlayerPrefs.GetInt($"Score_{i}");
+            string nickname = PlayerPrefs.GetString($"Nickname_{i}", "Player");
+            rankingsDisplay += $"{i}. {nickname} - {score}\n";
+        }
+    }
+
+    rankingsText.text = rankingsDisplay;
+    this.menuButtonsPanel.SetActive(false);
+
+    }
+
+    public void backToMenu()
+    {
+        this.rankingsPanel.SetActive(false);
+        this.menuButtonsPanel.SetActive(true);
+    }
+
 }
