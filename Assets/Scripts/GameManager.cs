@@ -79,7 +79,7 @@ public class GameManager : MonoBehaviour
     {
         audioManager.PlaySFX(audioManager.respawn);
         this.player.transform.position = Vector3.zero;
-        this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreCollisions");
+        this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
         this.player.gameObject.SetActive(true);
         this.player.enabled = true; // Enable the Player script
 
