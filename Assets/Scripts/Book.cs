@@ -21,7 +21,7 @@ public class Book : MonoBehaviour
 
     private void Start()
     {
-        _spriteRenderer.sprite = sprites[Random.Range(0, sprites.Length)];
+        _spriteRenderer.sprite = sprites[0];
 
         this.transform.eulerAngles = new Vector3(0.0f, 0.0f, Random.value * 360.0f);
         this.transform.localScale = Vector3.one * this.size;

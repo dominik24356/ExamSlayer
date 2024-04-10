@@ -86,7 +86,6 @@ public class Player : MonoBehaviour
         Pencil pencil = Instantiate(this.pencilPrefab, this.transform.position, this.transform.rotation);
         pencil.Project(this.transform.up);
     }
-
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Book")
@@ -99,5 +98,23 @@ public class Player : MonoBehaviour
             // slow very costly to use function
             FindObjectOfType<GameManager>().PlayerDied();
         }
+        else if (collision.gameObject.tag == "Box" && thrustSpeed == 1.0f)
+        {
+            StartCoroutine(doubleThrustSpeed());
+        }
     }
+
+
+    public IEnumerator doubleThrustSpeed()
+    {
+        this.thrustSpeed = thrustSpeed * 2;
+        this.turnSpeed = turnSpeed * 2;
+
+        yield return new WaitForSeconds(5);
+
+        // Reset power effect here, e.g., halve the thrust speed
+        this.thrustSpeed /= 2;
+        this.turnSpeed /= 2;
+    }
+
 }

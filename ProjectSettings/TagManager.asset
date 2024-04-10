@@ -7,6 +7,8 @@ TagManager:
   - Pencil
   - Book
   - Audio
+  - Box
+  - PlayerNotLayer
   layers:
   - Default
   - TransparentFX
