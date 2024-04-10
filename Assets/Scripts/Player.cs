@@ -12,7 +12,7 @@ public class Player : MonoBehaviour
     public Pencil pencilPrefab;
     AudioManager audioManager;
 
-    public int bulletsLeft = 3;
+    public int bulletsLeft = 10;
     public bool isReloading = false;
 
     private void Awake()
@@ -62,7 +62,7 @@ public class Player : MonoBehaviour
         
         this.isReloading = true;
         yield return new WaitForSeconds(2.0f);
-        this.bulletsLeft = 3;
+        this.bulletsLeft = 10;
         this.isReloading = false;
         audioManager.PlaySFX(audioManager.reload);
     }
@@ -98,9 +98,15 @@ public class Player : MonoBehaviour
             // slow very costly to use function
             FindObjectOfType<GameManager>().PlayerDied();
         }
-        else if (collision.gameObject.tag == "Box" && thrustSpeed == 1.0f)
+      
+    }
+
+
+    public void OnTriggerEnter2D(Collider2D collider)
+    {
+        if (collider.gameObject.tag == "Box" && thrustSpeed == 1.0f)
         {
-            StartCoroutine(doubleThrustSpeed());
+            StartCoroutine(this.doubleThrustSpeed());
         }
     }
 

@@ -81,10 +81,9 @@ public class GameManager : MonoBehaviour
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
         this.player.gameObject.SetActive(true);
-        this.player.enabled = true; // Enable the Player script
+        this.player.enabled = true; 
 
-        // Reset bullets count and reloading state
-        this.player.bulletsLeft = 3;
+        this.player.bulletsLeft = 10;
         this.player.isReloading = false;
 
         Invoke(nameof(TurnOnCollisions), this.respawnTime);
