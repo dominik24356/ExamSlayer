@@ -10,7 +10,7 @@ public class Book : MonoBehaviour
     public float size = 0.5f;
     public float minSize = 0.3f;
     public float maxSize = 0.8f;
-    public float speed = 2.0f;
+    public float speed =1.0f;
     public float maxLifetime = 30.0f;
 
     private void Awake()

@@ -81,7 +81,8 @@ public class GameManager : MonoBehaviour
         this.player.transform.position = Vector3.zero;
         this.player.gameObject.layer = LayerMask.NameToLayer("IgnoreColissions");
         this.player.gameObject.SetActive(true);
-        this.player.enabled = true; 
+        this.player.enabled = true;
+        this.player.thrustSpeed = 1.0f;
 
         this.player.bulletsLeft = 10;
         this.player.isReloading = false;

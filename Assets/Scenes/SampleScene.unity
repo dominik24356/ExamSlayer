@@ -1599,6 +1599,7 @@ MonoBehaviour:
   respawn: {fileID: 8300000, guid: 0e2ff086431662b4e9bb0584bedc2625, type: 3}
   shoot: {fileID: 8300000, guid: 566749c5e00f28b4aa8d125a8bf6e0df, type: 3}
   reload: {fileID: 8300000, guid: 8056fac9a5a7b9240a9b538bf2a40bfd, type: 3}
+  buff: {fileID: 8300000, guid: 75d029b423821c448883a0e57fa383b2, type: 3}
 --- !u!4 &630634840
 Transform:
   m_ObjectHideFlags: 0
@@ -7401,9 +7402,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26ea77321d264ea4c99a4883416b26ca, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 5
+  spawnRate: 15
   spawnDistance: 15
-  specialBoxPrefab: {fileID: 5983077455647578609, guid: 3e0c19f9764b4ae40a76298034b4a646, type: 3}
+  specialBoxPrefab: {fileID: 7386103444899124559, guid: 18315b79a3137f4469c1f4d81a75172c, type: 3}
   trajectoryVariance: 15
 --- !u!1 &2047946798
 GameObject:
@@ -7557,12 +7558,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3b9e535bce6576e4c8dc9fda2d30138f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  spawnRate: 2
+  spawnRate: 3
   trajectoryVariance: 15
   spawnAmount: 1
   spawnDistance: 15
   bookPrefab: {fileID: 2255605300783228977, guid: 1d1f6cd6d94ca684287a0c3535598005, type: 3}
-  speedIncreaseAmount: 1
 --- !u!4 &2144813893
 Transform:
   m_ObjectHideFlags: 0

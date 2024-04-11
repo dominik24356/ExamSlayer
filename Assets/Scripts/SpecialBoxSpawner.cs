@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SpecialBoxSpawner : MonoBehaviour
 {
-    public float spawnRate = 15.0f;
+    public float spawnRate = 20.0f;
     public float spawnDistance = 15.0f;
     public SpecialBox specialBoxPrefab;
     public float trajectoryVariance = 15.0f;

@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BookSpawner : MonoBehaviour
 {
-    public float spawnRate = 5.0f;
+    public float spawnRate = 10.0f;
     public float trajectoryVariance = 15.0f;
     public int spawnAmount = 1;
     public float spawnDistance = 15.0f;

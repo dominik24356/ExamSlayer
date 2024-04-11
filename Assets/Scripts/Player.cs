@@ -107,6 +107,7 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "Box" && thrustSpeed == 1.0f)
         {
             StartCoroutine(this.doubleThrustSpeed());
+            audioManager.PlaySFX(audioManager.buff);
         }
     }
 
