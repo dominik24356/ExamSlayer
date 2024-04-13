@@ -7404,7 +7404,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   spawnRate: 15
   spawnDistance: 15
-  specialBoxPrefab: {fileID: 7386103444899124559, guid: 18315b79a3137f4469c1f4d81a75172c, type: 3}
+  specialBoxPrefab: {fileID: -3970333161563236352, guid: cbf895f5bdc59b142b5baa973f50eee3, type: 3}
   trajectoryVariance: 15
 --- !u!1 &2047946798
 GameObject:
@@ -7563,6 +7563,7 @@ MonoBehaviour:
   spawnAmount: 1
   spawnDistance: 15
   bookPrefab: {fileID: 2255605300783228977, guid: 1d1f6cd6d94ca684287a0c3535598005, type: 3}
+  speedIncreaseAmount: 1
 --- !u!4 &2144813893
 Transform:
   m_ObjectHideFlags: 0
