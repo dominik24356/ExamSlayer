@@ -112,7 +112,21 @@ public class Player : MonoBehaviour
         if (collider.gameObject.tag == "Box")
         {
             int buffChoice = Random.Range(0, 2);
-    
+            if (buffChoice == 0)
+            {
+                StartCoroutine(BlinkText(0.25f, 6, "Double Speed!"));
+                StartCoroutine(DoubleThrustSpeed());
+            }
+            else if (buffChoice == 1)
+            {
+                StartCoroutine(BlinkText(0.25f, 6, "Book Protection!"));
+                StartCoroutine(Invincibility());
+            }
+            else if (buffChoice == 2)
+            {
+                StartCoroutine(BlinkText(0.25f, 6, "New magazine achieved!"));
+                StartCoroutine(NewMagazineUpdate());
+            }
 
             StartCoroutine(BlinkText(0.25f, 6, "New magazine achieved!"));
             StartCoroutine(NewMagazineUpdate());
