@@ -102,7 +102,7 @@ MonoBehaviour:
   powerDuration: 5
   speed: 10
   maxLifetime: 30
-  size: 0.5
+  size: 1.5
 --- !u!50 &9208762418967532622
 Rigidbody2D:
   serializedVersion: 4

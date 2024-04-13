@@ -111,7 +111,7 @@ public class Player : MonoBehaviour
     {
         if (collider.gameObject.tag == "Box")
         {
-            int buffChoice = Random.Range(0, 2);
+            int buffChoice = Random.Range(0, 3);
             if (buffChoice == 0)
             {
                 StartCoroutine(BlinkText(0.25f, 6, "Double Speed!"));
