@@ -128,8 +128,6 @@ public class Player : MonoBehaviour
                 StartCoroutine(NewMagazineUpdate());
             }
 
-            StartCoroutine(BlinkText(0.25f, 6, "New magazine achieved!"));
-            StartCoroutine(NewMagazineUpdate());
             audioManager.PlaySFX(audioManager.buff);
         }
     }
