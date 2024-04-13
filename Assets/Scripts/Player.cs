@@ -15,8 +15,11 @@ public class Player : MonoBehaviour
     AudioManager audioManager;
 
     public int bulletsLeft = 10;
+    public int totalBullets = 10;
+
     public bool isReloading = false;
     public bool isInvincible = false;
+    private bool unlimitedAmmo = false;
 
 
     private PlayerEffects playerEffects;
@@ -66,7 +69,7 @@ public class Player : MonoBehaviour
         
         this.isReloading = true;
         yield return new WaitForSeconds(2.0f);
-        this.bulletsLeft = 10;
+        this.bulletsLeft = this.totalBullets;
         this.isReloading = false;
         audioManager.PlaySFX(audioManager.reload);
     }
@@ -90,9 +93,10 @@ public class Player : MonoBehaviour
         Pencil pencil = Instantiate(this.pencilPrefab, this.transform.position, this.transform.rotation);
         pencil.Project(this.transform.up);
     }
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        // Check for invincibility before processing collision with "Book"
         if (collision.gameObject.tag == "Book" && !isInvincible)
         {
             _rigidbody.velocity = Vector3.zero;
@@ -107,20 +111,22 @@ public class Player : MonoBehaviour
     {
         if (collider.gameObject.tag == "Box")
         {
-            int buffChoice = Random.Range(0, 2);  
-            if (buffChoice == 0)
-            {
-                StartCoroutine(BlinkText(0.25f, 6, "Double Speed!"));
-                StartCoroutine(DoubleThrustSpeed());
-            }
-            else
-            {
-                StartCoroutine(BlinkText(0.25f, 6, "Book Protection!"));
-                StartCoroutine(Invincibility());
-            }
+            int buffChoice = Random.Range(0, 2);
+    
+
+            StartCoroutine(BlinkText(0.25f, 6, "New magazine achieved!"));
+            StartCoroutine(NewMagazineUpdate());
             audioManager.PlaySFX(audioManager.buff);
         }
     }
+
+    private IEnumerator NewMagazineUpdate()
+    {
+        this.totalBullets += 3;
+        yield return new WaitForSeconds(0);
+
+    }
+
 
     private IEnumerator Invincibility()
     {
