@@ -87,6 +87,8 @@ public class GameManager : MonoBehaviour
         this.player.bulletsLeft = 10;
         this.player.isReloading = false;
 
+        FindObjectOfType<PlayerEffects>().DeactivateGlowEffect();
+
         Invoke(nameof(TurnOnCollisions), this.respawnTime);
     }
 

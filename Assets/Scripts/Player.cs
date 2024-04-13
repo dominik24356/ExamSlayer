@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Player : MonoBehaviour
@@ -10,15 +11,21 @@ public class Player : MonoBehaviour
     public float thrustSpeed = 1.0f;
     public float turnSpeed = 1.0f;
     public Pencil pencilPrefab;
+    public TextMeshProUGUI buffInfo;
     AudioManager audioManager;
 
     public int bulletsLeft = 10;
     public bool isReloading = false;
+    public bool isInvincible = false;
+
+
+    private PlayerEffects playerEffects;
 
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
+        playerEffects = GetComponent<PlayerEffects>(); 
     }
 
     private void Update()
@@ -43,18 +50,15 @@ public class Player : MonoBehaviour
             if (bulletsLeft > 0 && !isReloading)
             {
                 Shoot();
-                this.bulletsLeft--;
+                bulletsLeft--;
                 if (bulletsLeft == 0)
                 {
                     StartCoroutine(Reload());
                 }
             }
-
-
-            
         }
 
-        FindObjectOfType<GameManager>().updateBulletsText(this.bulletsLeft);
+        FindObjectOfType<GameManager>().updateBulletsText(bulletsLeft);
     }
 
     private IEnumerator Reload()
@@ -88,40 +92,69 @@ public class Player : MonoBehaviour
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Book")
+        // Check for invincibility before processing collision with "Book"
+        if (collision.gameObject.tag == "Book" && !isInvincible)
         {
             _rigidbody.velocity = Vector3.zero;
             _rigidbody.angularVelocity = 0.0f;
-
             this.gameObject.SetActive(false);
-
-            // slow very costly to use function
             FindObjectOfType<GameManager>().PlayerDied();
         }
-      
     }
 
 
     public void OnTriggerEnter2D(Collider2D collider)
     {
-        if (collider.gameObject.tag == "Box" && thrustSpeed == 1.0f)
+        if (collider.gameObject.tag == "Box")
         {
-            StartCoroutine(this.doubleThrustSpeed());
+            int buffChoice = Random.Range(0, 2);  
+            if (buffChoice == 0)
+            {
+                StartCoroutine(BlinkText(0.25f, 6, "Double Speed!"));
+                StartCoroutine(DoubleThrustSpeed());
+            }
+            else
+            {
+                StartCoroutine(BlinkText(0.25f, 6, "Book Protection!"));
+                StartCoroutine(Invincibility());
+            }
             audioManager.PlaySFX(audioManager.buff);
         }
     }
 
-
-    public IEnumerator doubleThrustSpeed()
+    private IEnumerator Invincibility()
     {
-        this.thrustSpeed = thrustSpeed * 2;
-        this.turnSpeed = turnSpeed * 2;
+        isInvincible = true;
+        yield return new WaitForSeconds(10);  
+        isInvincible = false;
+        playerEffects.DeactivateGlowEffect();
+    }
 
-        yield return new WaitForSeconds(5);
+    private IEnumerator BlinkText(float interval, int blinks, string buffText)
+    {
+        playerEffects.ActivateGlowEffect();
+        buffInfo.gameObject.SetActive(true);
+        for (int i = 0; i < blinks; i++)
+        {
+            buffInfo.text = buffText;
+            yield return new WaitForSeconds(interval);
+            buffInfo.text = "";
+            yield return new WaitForSeconds(interval);
+        }
+        buffInfo.gameObject.SetActive(false);
+    }
 
-        // Reset power effect here, e.g., halve the thrust speed
-        this.thrustSpeed /= 2;
-        this.turnSpeed /= 2;
+    public IEnumerator DoubleThrustSpeed()
+    {
+        thrustSpeed *= 2;
+        turnSpeed *= 2;
+
+        yield return new WaitForSeconds(10);
+
+        thrustSpeed /= 2;
+        turnSpeed /= 2;
+
+        playerEffects.DeactivateGlowEffect(); 
     }
 
 }
