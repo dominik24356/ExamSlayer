@@ -35,6 +35,11 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void SetDifficulty(string difficulty)
+    {
+        Debug.Log("Difficulty set to: " + difficulty);
+    }
+
     public void OnToggleSound()
     {
         isSoundOn = !isSoundOn;

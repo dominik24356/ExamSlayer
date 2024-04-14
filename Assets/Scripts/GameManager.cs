@@ -17,6 +17,15 @@ public class GameManager : MonoBehaviour
 
     AudioManager audioManager;
 
+    public enum Difficulty { Easy, Medium, Hard }
+    public Difficulty currentDifficulty;
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        currentDifficulty = difficulty;
+        Debug.Log("Difficulty set to: " + difficulty.ToString());
+    }
+
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
