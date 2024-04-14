@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenuManager : MonoBehaviour
 {
-    public GameObject pauseMenuPanel; // Assign in Inspector
+    public GameObject pauseMenuPanel; 
     public bool IsGamePaused = false;
 
     public void Update()
@@ -23,7 +23,7 @@ public class PauseMenuManager : MonoBehaviour
 
     public void backToMenuButtonClicked()
     {
-        PlayerPrefs.SetInt("SkipNicknameEntry", 1); // Set flag to skip nickname entry
+        PlayerPrefs.SetInt("SkipNicknameEntry", 1); 
         SceneManager.LoadScene("MainMenuScene");
     }
 
@@ -40,14 +40,14 @@ public class PauseMenuManager : MonoBehaviour
     public void PauseGame()
     {
         pauseMenuPanel.SetActive(true);
-        Time.timeScale = 0f; // Pauses the game
+        Time.timeScale = 0f;
         IsGamePaused = true;
     }
 
     public void ResumeGame()
     {
         pauseMenuPanel.SetActive(false);
-        Time.timeScale = 1f; // Resumes the game
+        Time.timeScale = 1f; 
         IsGamePaused = false;
 
     }
