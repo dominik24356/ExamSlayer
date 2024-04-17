@@ -17,6 +17,15 @@ public class GameManager : MonoBehaviour
 
     AudioManager audioManager;
 
+    public enum Difficulty { Easy, Medium, Hard }
+    public Difficulty currentDifficulty;
+
+    public void SetDifficulty(Difficulty difficulty)
+    {
+        currentDifficulty = difficulty;
+        Debug.Log("Difficulty set to: " + difficulty.ToString());
+    }
+
     private void Awake()
     {
         audioManager = GameObject.FindGameObjectWithTag("Audio").GetComponent<AudioManager>();
@@ -75,6 +84,12 @@ public class GameManager : MonoBehaviour
         this.score = 0;
     }
 
+    public void ResetAllPlayerPrefs()
+    {
+        PlayerPrefs.DeleteAll();
+        PlayerPrefs.Save();
+    }
+
     public void Respawn()
     {
         audioManager.PlaySFX(audioManager.respawn);
@@ -103,7 +118,8 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
-      
+        this.SaveScore();
+
         FindObjectOfType<GameOverManager>().ShowGameOver();
 
         scoreText.text = "Score: " + this.score.ToString();
@@ -115,13 +131,13 @@ public class GameManager : MonoBehaviour
     public void updateBulletsText(int bulletsLeft)
     {
         pencilsLeftText.text = "Pencils: " + bulletsLeft.ToString();
-        this.SaveScore();
     }
 
     public void SaveScore()
     {
         int newScore = this.score;
         string nickname = PlayerPrefs.GetString("PlayerNickname", "Player");
+
 
         for (int i = 1; i <= 10; i++)
         {

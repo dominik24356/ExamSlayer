@@ -9,9 +9,13 @@ public class MainMenuController : MonoBehaviour
     public GameObject nicknamePanel; 
     public GameObject nicknameInputGameObject; 
     public GameObject continueButtonGameObject;
+    public GameObject optionsPanel;
+    public Button toggleSoundButton;
 
     public GameObject rankingsPanel;
     public Text rankingsText;
+
+    private bool isSoundOn = true;
 
     void Start()
 {
@@ -31,6 +35,22 @@ public class MainMenuController : MonoBehaviour
         }
     }
 
+    public void SetDifficulty(string difficulty)
+    {
+        Debug.Log("Difficulty set to: " + difficulty);
+    }
+
+    public void OnToggleSound()
+    {
+        isSoundOn = !isSoundOn;
+        AudioListener.volume = isSoundOn ? 1.0f : 0.0f;
+        UpdateSoundButtonText();
+    }
+
+    void UpdateSoundButtonText()
+    {
+        toggleSoundButton.GetComponentInChildren<Text>().text = isSoundOn ? "TURN OFF SOUND" : "TURN ON SOUND";
+    }
 
     public void OnContinueClicked()
     {
@@ -50,13 +70,14 @@ public class MainMenuController : MonoBehaviour
 
     public void OnPlayClicked()
     {
-        Time.timeScale = 1f; 
+        Time.timeScale = 1f;
         SceneManager.LoadScene("SampleScene");
     }
 
     public void OnOptionsClicked()
     {
-        // TO IMPLEMENT
+        optionsPanel.SetActive(true);
+        menuButtonsPanel.SetActive(false);
     }
 
     public void OnQuitClicked()
@@ -86,6 +107,7 @@ public class MainMenuController : MonoBehaviour
 
     public void backToMenu()
     {
+        this.optionsPanel.SetActive(false);
         this.rankingsPanel.SetActive(false);
         this.menuButtonsPanel.SetActive(true);
     }
