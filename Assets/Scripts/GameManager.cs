@@ -86,6 +86,8 @@ public class GameManager : MonoBehaviour
 
         this.player.bulletsLeft = this.player.totalBullets;
         this.player.isReloading = false;
+        this.player.isSpeedBoostActive = false;
+        this.player.GetComponent<PlayerEffects>().DeactivateGlowEffect();
 
         FindObjectOfType<PlayerEffects>().DeactivateGlowEffect();
 

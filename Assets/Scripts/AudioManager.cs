@@ -16,6 +16,8 @@ public class AudioManager : MonoBehaviour
     public AudioClip shoot;
     public AudioClip reload;
     public AudioClip buff;
+    public AudioClip speed_boost;
+    public AudioClip reload_start;
 
     private void Start()
     {
